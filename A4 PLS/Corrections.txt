@@ -1,0 +1,6 @@
+# Do a correlation plot of all the 7000 variables with their PLS scores and computing the corr of the response and represent them in circle plot
+correlation b/w the 2 pls components and the predictors
+cor b/e the predictors and the 2 components
+
+we see that the red line is large and well represented in the first 2 components.
+with logistc regrsssion I infere that I can sep data perfectly and get residual deviance 0

@@ -1,0 +1,8 @@
+# Missing Stuff
+
+Compute the variance between T and U
+Statistics by comparing pvalues between components and check values
+Eyeball the R^2 cv values
+plot mean per row 
+Not to remove the intercept as Y is not centered
+Add columns of 1s to the test set as intercept is not added
