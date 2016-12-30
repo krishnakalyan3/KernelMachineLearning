@@ -1,8 +1,11 @@
 rm(list=ls())
 
-source('Utils.R')
-setwd('/Users/krishna/MIRI/KML/github/Project - Kaggle')
-library(MASS)
+setwd('/Users/krishna/MIRI/KML')
+
+source('github/Project/Utils.R')
+library(FactoMineR)
+library(doMC)
+registerDoMC(4)
 set.seed(1337)
 
 train = read.csv('data/train.csv')
@@ -21,13 +24,14 @@ cat_train = datatrain[,cat_col]
 cat_test = datatest[,cat_col]
 
 cats = apply(cat_train, 2, function(x) nlevels(as.factor(x)))
-cats_17 = cats > 17
 
-mca_train = cat_train[,cats_17]
-mca_test = cat_test[,cats_17]
+mca_train = cat_train
+mca_test = cat_test
 
-mca = mca(mca_train)
-mca_train_comp = data.frame(predict(mca,mca_train))
+mca = MCA(mca_train, ncp=50)
+plot(mca,invisible=c("ind","var"),hab="quali")
+
+mca_train_comp = data.frame(predict(mca, mca_train))
 mca_test_comp = data.frame(predict(mca,mca_test))
 
 saveRDS(mca, 'data/mca/res_res.rds')
