@@ -1,3 +1,5 @@
+library(plyr)
+
 fix_levels = function(train, test){
   for(i in names(test)){
     if (length(levels(test[,i])) < length(levels(train[,i]))){
@@ -20,7 +22,7 @@ kfold_svr = function(data, k = 5, model=ksvm, formuale){
   for (i in 1:k){
     trainingset = subset(data, fold %in% list[-i])
     testset = subset(data, fold %in% c(i))
-    model1 = model(formuale, data = trainingset, kernel='rbfdot', type='nu-svr', cross = 5, scaled= T)
+    model1 = model(formuale, data = trainingset, kernel='rbfdot', type='nu-svr', cross = 5, scaled= TRUE)
     yhat = predict(model1, testset)
     mae = mean(abs(yhat - exp(testset$loss)))
     mae_all[i] = mae
@@ -31,22 +33,4 @@ kfold_svr = function(data, k = 5, model=ksvm, formuale){
 
   return(list(svr_model, mae_avg))
 }
-
-
-eval_func = function(y, yhat, cm_show = FALSE){
-  metrics = c()
-  cm = table(y,yhat)
-  
-  if(cm_show == TRUE){
-    print(cm)
-  }
-  
-  total = sum(cm)
-  no_diag = cm[row(cm) != (col(cm))]
-  acc = sum(diag(cm))/total
-  error = sum(no_diag)/total
-  metrics = c(acc,error)
-  return(metrics)
-}
-
 

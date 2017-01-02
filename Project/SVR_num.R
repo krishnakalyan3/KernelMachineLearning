@@ -27,7 +27,7 @@ time_all = c()
 mae = c()
 for(i in obs){
   ptm = proc.time()
-  train_sample = sample(train[1:i,])
+  train_sample = train[sample(nrow(train), OBS), 
   svr_model = kfold_svr(train_sample, formuale=formual1)
   tn = proc.time() - ptm
   time_all= c(time_all, tn[3])

@@ -29,7 +29,6 @@ mca_train = cat_train
 mca_test = cat_test
 
 mca = MCA(mca_train, ncp=50)
-plot(mca,invisible=c("ind","var"),hab="quali")
 
 mca_train_comp = data.frame(predict(mca, mca_train))
 mca_test_comp = data.frame(predict(mca,mca_test))
